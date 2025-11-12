@@ -2,82 +2,112 @@
 “Power BI dashboard analyzing customer churn in the telecom industry”
 # 📊 Telecom Customer Churn Analysis – Power BI Project
 
-This Power BI project analyzes **customer churn** in a telecom company.  
-It identifies which customers are leaving (churn), why they’re leaving, and what factors most strongly influence their decision — enabling the company to improve retention and revenue.
+This project analyzes **customer churn behavior** for a telecom company using **Power BI**.  
+It transforms raw customer data into **interactive dashboards** that reveal churn patterns, customer profiles, and actionable business insights.
 
 ---
 
-## 🚀 Project Overview
+## 🎯 Project Objectives
 
-**Goal:**  
-To understand the patterns behind customer churn and create actionable insights for business decision-making.
-
-**Objectives:**
-- Analyze overall **customer churn rate**
-- Identify **key factors** that influence churn
-- Segment customers by **demographics and service usage**
-- Visualize **revenue impact** and retention opportunities
+- Analyze customer churn patterns and identify key factors influencing attrition.  
+- Understand customer behavior based on **demographics, service subscriptions,** and **billing information**.  
+- Measure **churn rate** across customer segments like contract type, internet service, and payment method.  
+- Visualize business performance through **Power BI dashboards** and key KPIs.  
+- Provide insights to support **data-driven retention strategies** and improve **customer satisfaction**.
 
 ---
 
 ## 🧩 Dataset Overview
 
-**File used:** `Telco_Customer_Churn_Dataset.xlsx`
+**Dataset Name:** Telco Customer Churn Dataset  
+**Source:** [Kaggle – Telco Customer Churn](https://www.kaggle.com/blastchar/telco-customer-churn)  
+**File Type:** Excel  
+**Records:** 7,043 customers  
+**Columns:** 21 fields  
 
-This dataset contains information about a telecom company’s customers, their account details, services subscribed, and whether they have churned or not.
-
-### Key Columns:
+### Key Columns
 | Column | Description |
 |---------|-------------|
-| `customerID` | Unique ID assigned to each customer |
-| `gender` | Male / Female |
-| `SeniorCitizen` | 1 if customer is a senior citizen, else 0 |
-| `Partner` | Whether the customer has a partner |
-| `Dependents` | Whether the customer has dependents |
-| `tenure` | Number of months the customer has stayed with the company |
-| `PhoneService` | Whether the customer has phone service |
-| `InternetService` | Type of internet service (DSL, Fiber optic, None) |
+| `customerID` | Unique customer identifier |
+| `gender`, `SeniorCitizen`, `Partner`, `Dependents` | Demographic features |
+| `tenure` | Number of months customer has stayed |
+| `PhoneService`, `InternetService`, `StreamingTV`, `TechSupport` | Service subscriptions |
 | `Contract` | Contract type (Month-to-month, One year, Two year) |
-| `PaymentMethod` | Customer's payment method |
-| `MonthlyCharges` | Amount charged monthly |
-| `TotalCharges` | Total amount billed to the customer |
-| `Churn` | Whether the customer has left the company |
-
-**Source:** [Telco Customer Churn Dataset – Kaggle](https://www.kaggle.com/blastchar/telco-customer-churn)
+| `PaymentMethod` | Mode of payment (Credit Card, Electronic Check, etc.) |
+| `MonthlyCharges`, `TotalCharges` | Billing data |
+| `Churn` | Indicates if the customer has left (Yes/No) |
 
 ---
 
-## 📈 Dashboard Summary
+## 🧹 Data Preparation
 
-The Power BI report is organized into multiple interactive pages:
+Performed in **Power Query Editor** in Power BI:
+- Imported dataset from Excel.
+- Cleaned and standardized data.
+- Removed nulls and blanks from `TotalCharges` column.
+- Converted `TotalCharges` from text to numeric.
+- Created calculated columns and DAX measures:
+  - **Churn Rate**
+  - **Average Monthly Charges**
+  - **Average Tenure**
+  - **Total Revenue**
+- Standardized categorical values (e.g., “No internet service” → “No”).
+- Added derived metrics such as **Total Services Subscribed**.
+- Ensured data validation with no duplicates or mismatches.
 
-### 1️⃣ **Overview Dashboard**
-- Displays total customers, churn count, churn rate, and total revenue.
-- Includes KPIs and churn trends over time.
+---
 
-### 2️⃣ **Customer Demographics**
-- Analyzes churn based on gender, senior citizen status, and partner/dependent status.
+## 📊 Power BI Dashboards
 
-### 3️⃣ **Contract & Payment Analysis**
-- Shows churn by contract type, tenure, and payment method.
+### 1️⃣ Customer Demographics Dashboard
+**Visuals Used:**
+- Donut Chart → Gender distribution  
+- Bar Chart → Senior Citizen vs. Non-senior churn  
+- Column Chart → Tenure segmentation  
+- Line Chart → Churn rate across tenure  
+- Cards → Total Customers, Churned Customers, Churn Rate, Avg. Tenure  
 
-### 4️⃣ **Services Overview**
-- Explores churn by internet and phone services.
+**Purpose:** Understand churn behavior across different customer groups.
+
+---
+
+### 2️⃣ Service Subscription Dashboard
+**Visuals Used:**
+- Stacked Column → Phone & Internet service usage  
+- Funnel Chart → Churn by Internet Service Type (DSL, Fiber, None)  
+- Clustered Bar → Add-on service usage  
+- Scatter Plot → Number of services vs. churn  
+- Slicers → Gender, Senior Citizen, Internet Service, Contract Type  
+
+**Purpose:** Identify how service combinations impact churn.
+
+---
+
+### 3️⃣ Contract & Billing Dashboard
+**Visuals Used:**
+- Bar Chart → Churn by Contract Type  
+- Donut Chart → Payment Method distribution  
+- Clustered Column → Avg. Total Charges by Contract Type  
+- Line Chart → Monthly Charges by Payment Method  
+- Table/Matrix → Billing KPIs by Contract Type  
+
+**Purpose:** Analyze contract types and billing methods influencing churn.
 
 ---
 
 ## 🧠 Key Insights
 
 - **Overall churn rate:** ~26%
-- Customers with **Month-to-Month contracts** are more likely to churn.
-- **Electronic check** payment method has the highest churn.
-- **Fiber optic** users churn more than DSL users.
-- **Senior citizens** and **short-tenure customers** show higher churn.
-- Customers with **longer contracts** and **auto-payment** methods are more loyal.
+- **Month-to-month contracts** have the highest churn.
+- Customers paying via **electronic check** churn most frequently.
+- **Fiber optic** service users churn more than DSL users.
+- **Senior citizens** and **new customers (short tenure)** have higher churn.
+- Customers with **multiple service subscriptions** and **longer contracts** are more loyal.
+- Average **monthly charge** and **total charge** are higher among churned customers.
 
 ---
 
-## 🧮 DAX Measures Used
+## 📈 DAX Measures
 
 ```DAX
 Churn Rate =
@@ -95,31 +125,45 @@ CALCULATE(
 )
 
 Average Tenure = AVERAGE(CustomerData[tenure])
+```
 
-🧾 Conclusion
+---
 
-This Telecom Customer Churn Analysis project provided a clear picture of customer behavior and the factors driving churn.
-By analyzing demographics, contracts, and payment preferences, we discovered that:
+## 💡 Business Applications
 
-Short-term, flexible contracts lead to higher churn.
+- **Marketing Teams:** Identify and target high-risk customers with personalized retention offers.  
+- **Customer Support:** Prioritize service improvements for segments with high churn.  
+- **Management:** Track churn KPIs for strategic planning and performance monitoring.  
+- **Product Teams:** Optimize bundles and pricing models for long-term retention.
 
-Automating payments and promoting longer-term plans can reduce churn.
+---
 
-Customer tenure is a strong indicator of loyalty — early retention efforts are essential.
+## 🧾 Recommendations
 
-Targeted offers for high-risk groups (e.g., month-to-month or electronic check users) can significantly improve retention.
+- Encourage **long-term contracts** (1-year or 2-year plans) through discounts or loyalty rewards.  
+- Promote **bundled service packages** (Internet + Streaming + Security).  
+- Offer **personalized retention offers** for senior citizens and high-charge users.  
+- Educate customers on **online backup** and **device protection** benefits.  
+- Closely monitor **payment issues** and **monthly charge increases** as churn indicators.
 
-Business Recommendation:
-Telecom companies should focus on:
+---
 
-Encouraging long-term contracts
+## 🏁 Conclusion
 
-Offering discounts or loyalty rewards for early customers
+The Power BI dashboards provide a **clear and interactive view** of customer churn behavior.  
+The analysis revealed that **high monthly charges**, **month-to-month contracts**, and **fiber optic services** are major churn drivers.  
+Customers with **longer tenure**, **multiple services**, and **stable payment methods** show higher loyalty.
 
-Promoting automatic payment methods
+By implementing these insights, telecom companies can:
+- Reduce churn through **targeted retention strategies**
+- Improve **customer satisfaction and loyalty**
+- Boost **revenue stability** and **long-term profitability**
 
-Providing better support and service reliability for Fiber optic users
+**Final Takeaway:**  
+This project demonstrates how Power BI can turn raw telecom data into actionable business intelligence — empowering teams to make data-driven decisions that reduce churn and drive growth.
 
-By implementing these strategies, the company can reduce churn, improve satisfaction, and maximize lifetime customer value.
+
+
+
 
 
